@@ -1,7 +1,5 @@
 package ca.allanwang.reddit.api
 
-import ca.allanwang.reddit.api.impl.RedditApiModule
-import ca.allanwang.reddit.api.impl.RedditApiProvider
 import dagger.Component
 import kotlinx.coroutines.runBlocking
 import net.dean.jraw.RedditClient
@@ -12,25 +10,18 @@ import javax.inject.Singleton
 class RedditApiTest {
 
     private lateinit var component: RedditTestComponent
-    private lateinit var api: RedditApi
+    private lateinit var client: RedditClient
 
     @BeforeEach
     fun before() {
         component = DaggerRedditTestComponent.create()
-        api = component.api()
-    }
-
-    @Test
-    fun saveNewToken() {
-        runBlocking {
-            component.apiProvider().newToken()
-        }
+        client = component.client(e)
     }
 
     @Test
     fun subreddit() {
         runBlocking {
-            println(component.client().submission("3g1jfi").comments().firstOrNull())
+            println(component.client().submission("3g1jfi").comments().subject.author)
 //            println(api.comments("funny", "3g1jfi"))
         }
     }
@@ -40,9 +31,5 @@ class RedditApiTest {
 @Singleton
 @Component(modules = [RedditApiModule::class])
 interface RedditTestComponent {
-    fun api(): RedditApi
-
-    fun apiProvider(): RedditApiProvider
-
     fun client(): RedditClient
 }

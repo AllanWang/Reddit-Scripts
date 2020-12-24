@@ -20,6 +20,7 @@ class RedditConfig @Inject internal constructor() {
 
     val clientId: String = props.getProperty("client_id")!!
     val clientSecret: String = props.getProperty("client_secret")!!
+    val submission: String? = props.getProperty("submission")
 
     var uuid: UUID?
         get() = props.getProperty("uuid")?.let { UUID.fromString(it) }

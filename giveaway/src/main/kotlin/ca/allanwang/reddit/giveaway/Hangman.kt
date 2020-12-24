@@ -44,7 +44,7 @@ class Hangman @Inject internal constructor(
     /**
      * Get results for all top level comments of the provided [submission]
      */
-    suspend fun play(submission: String, word: String): Result {
+    fun play(submission: String, word: String): Result {
         val component =
             hangmanCoreProvider.get().word(word).build()
         val core = component.hangmanCore()

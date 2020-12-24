@@ -1,9 +1,9 @@
 package ca.allanwang.reddit.giveaway
 
+import ca.allanwang.reddit.api.RedditConfig
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import dagger.Component
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import javax.inject.Provider
@@ -43,10 +43,12 @@ class HangmanTest {
     @Test
     @Ignore("Actual run")
     fun hangman() {
-        runBlocking {
-            val result = component.hangman().play("TODO()", "flamingo")
-            println(result.guesses.firstOrNull { it.pass })
-        }
+        val result = component.hangman()
+            .play(
+                component.config().submission!!,
+                "pomme"
+            )
+        println(result.guesses.firstOrNull { it.pass })
     }
 
     @Test
@@ -83,6 +85,8 @@ class HangmanTest {
 @Component(modules = [HangmanModule::class])
 interface HangmanTestComponent {
     fun hangman(): Hangman
+
+    fun config(): RedditConfig
 
     fun hangmanComponentProvider(): Provider<HangmanComponent.Builder>
 }

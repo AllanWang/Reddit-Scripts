@@ -15,14 +15,13 @@ class RedditApiTest {
     @BeforeEach
     fun before() {
         component = DaggerRedditTestComponent.create()
-        client = component.client(e)
+        client = component.client()
     }
 
     @Test
     fun subreddit() {
         runBlocking {
             println(component.client().submission("3g1jfi").comments().subject.author)
-//            println(api.comments("funny", "3g1jfi"))
         }
     }
 }

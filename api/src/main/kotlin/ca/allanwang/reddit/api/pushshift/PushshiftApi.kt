@@ -11,7 +11,7 @@ class PushshiftApi @Inject internal constructor(
     class Config {
         var q: String? = null
         var ids: Set<String> = emptySet()
-        val size: Int? = null
+        var size: Int? = null
         var sort: Sort = Sort.DESC
         var author: String? = null
         var subreddit: String? = null

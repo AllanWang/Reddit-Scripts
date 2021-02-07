@@ -9,12 +9,12 @@ import javax.inject.Singleton
 
 class RedditApiTest {
 
-    private lateinit var component: RedditTestComponent
+    private lateinit var component: RedditClientTestComponent
     private lateinit var client: RedditClient
 
     @BeforeEach
     fun before() {
-        component = DaggerRedditTestComponent.create()
+        component = DaggerRedditClientTestComponent.create()
         client = component.client()
     }
 
@@ -29,6 +29,6 @@ class RedditApiTest {
 
 @Singleton
 @Component(modules = [RedditApiModule::class])
-interface RedditTestComponent {
+interface RedditClientTestComponent {
     fun client(): RedditClient
 }
